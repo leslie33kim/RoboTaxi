@@ -49,7 +49,7 @@ dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
 # Straight run from (0,0)
 dc_motorL.forward(100) 
 dc_motorR.forward(100)
-sleep(30)
+sleep(20)
 
 # First semi-circle
 dc_motorL.forward(100)  
@@ -59,7 +59,7 @@ sleep(10)
 # Straight run after first semi-circle
 dc_motorL.forward(100) 
 dc_motorR.forward(100)
-sleep(30)
+sleep(20)
 
 # Second semi-circle to close the loop
 dc_motorL.forward(100)  
