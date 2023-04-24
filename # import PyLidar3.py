@@ -1,7 +1,7 @@
 # import PyLidar3
 #import matplotlib.pyplot as plt
 # port = input("Enter port name which lidar is connected:/dev/ttyt0") #windows
-Obj = PyLidar3.YdLidarX4("/dev/ttyt0")
+# Obj = PyLidar3.YdLidarX4("/dev/ttyt0")
 # if(Obj.Connect()):
 #     print(Obj.GetDeviceInfo())
 #     print(Obj.GetCurrentFrequency())
@@ -22,7 +22,7 @@ import time # Time module
 #In linux type in terminal -- ls /dev/tty*
 port = input("Enter port name which lidar is connected:com6") #windows
 #port = "/dev/ttyUSB0" #linux
-#Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size)
+Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size)
 if(Obj.Connect()):
     print(Obj.GetDeviceInfo())
     gen = Obj.StartScanning()
