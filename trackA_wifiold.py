@@ -1,50 +1,17 @@
+import wifimgr
 from machine import Pin, PWM   
 from time import sleep
 
-import network
-import socket
-import binascii
+try:
+  import usocket as socket
+except:
+  import socket
 
-import gc
-gc.collect()
-
-import esp
-esp.osdebug(None)
-
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.scan()
-wlan.isconnected()
-wlan.connect('Berkeley-IoT','4,pEg&"W')
-wlan.config('mac')
-wlan.ifconfig()
-
-ap = network.WLAN(network.AP_IF)
-ap.active(True)
-macaddress = (ap.config('mac'))
-print(macaddress)
-
-mac_str = binascii.hexlify(ap.config('mac')).decode()
-print(mac_str)
-
-ap.config(essid='ESP32',password='RoboTaxi')
-print(ap.config('essid'))
-ap.active(True)
-
-print(ap.ifconfig())
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('',80))
-s.listen(30)
-
-while True:
-    conn, addr = s.accept()
-    print('Got a connection from %s' % str(addr))
-    request = conn.recv(1024)
-    print('Content = %s' % str(request))
-    response = b'You are connected to ESP32'
-    conn.send(response)
-    conn.close()
+wlan = wifimgr.get_connection()
+if wlan is None:
+    print("Could not initialize the network connection.")
+    while True:
+        pass  # you shall not pass :D
 
 class DCMotor:      
   def __init__(self, pin1, pin2, enable_pin, min_duty=750, max_duty=1023):
@@ -94,7 +61,7 @@ dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
 # Straight run from (0,0)
 dc_motorL.forward(100) 
 dc_motorR.forward(100)
-sleep(20)
+sleep(30)
 
 # First semi-circle
 dc_motorL.forward(100)  
@@ -104,7 +71,7 @@ sleep(10)
 # Straight run after first semi-circle
 dc_motorL.forward(100) 
 dc_motorR.forward(100)
-sleep(20)
+sleep(30)
 
 # Second semi-circle to close the loop
 dc_motorL.forward(100)  
