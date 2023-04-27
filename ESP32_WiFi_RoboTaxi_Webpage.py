@@ -67,10 +67,10 @@ ap.active(True)         # activate the interface
 
 print(ap.ifconfig())
 
-# def web_page():
-#   html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-#   <body><h1>Hello, World! This is your ESP32 Talking</h1></body></html>"""
-#   return html
+def web_page():
+  html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+  <body><h1>Hello, World! This is your ESP32 Talking</h1></body></html>"""
+  return html
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # for AP
 # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # for Berkeley-IoT
@@ -88,6 +88,7 @@ while True:
     # conn.send(response)
     response = 'test'
     conn.send(response)
+    print('before running motors')
     frequency = 15000       
     pinLf = Pin(4, Pin.OUT) #left wheel forward
     pinLb = Pin(5, Pin.OUT) #left wheel backward
@@ -123,3 +124,4 @@ while True:
     dc_motorL.stop()
     dc_motorR.stop()
     conn.close()
+

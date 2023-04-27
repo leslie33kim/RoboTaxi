@@ -15,7 +15,7 @@ wlan = network.WLAN(network.STA_IF) # create station interface
 wlan.active(True)       # activate the interface
 wlan.scan()             # scan for access points
 wlan.isconnected()      # check if the station is connected to an AP
-wlan.connect('Berkeley-IoT', 'A(uxgHF6') # connect to an AP
+wlan.connect('Berkeley-IoT', '4,pEg&"W') # connect to an AP
 wlan.config('mac')      # get the interface's MAC address
 print(wlan.ifconfig())         # get the interface's IP/netmask/gw/DNS addresses
 
@@ -28,7 +28,7 @@ print(macaddress)
 mac_str = binascii.hexlify(ap.config('mac')).decode()
 print(mac_str)
 
-ap.config(essid='ESP32',password='ME135') # set the SSID of the access point
+ap.config(essid='ESP32-RoboTaxi',password='RoboTaxi') # set the SSID of the access point
 print(ap.config('essid'))
 ap.config(max_clients=10) # set how many clients can connect to the network
 ap.active(True)         # activate the interface
