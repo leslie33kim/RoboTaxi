@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a7d67ac0-c4eb-45c1-8efd-8825443b979b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PyLidar3_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyLidar3_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.google.cloudcode.ide_session_index": "20230424_0001",
+    "com.google.cloudcode.ide_session_index": "20230428_0003",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/lesliekim/Desktop/RoboTaxi",
     "project.structure.last.edited": "Project",
