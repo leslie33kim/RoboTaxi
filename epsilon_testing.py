@@ -8,7 +8,8 @@ import threading
 
 #using K-nearest neighbor algorithm to find the eps value for DBSCAN
 from sklearn.cluster import DBSCAN
-port = "/dev/tty.usbserial-0001" #windows
+port = "/dev/tty.usbserial-0001" #mac
+port = "com6" #windows
 Obj = PyLidar3.YdLidarX4(port)
 
 x=[]

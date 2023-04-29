@@ -5,8 +5,10 @@
 
 import PyLidar3
 import matplotlib.pyplot as plt
-port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #windows
-Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001")
+# port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #mac
+port = input("Enter port name which lidar is connected:com6") #windows
+# Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001") #mac
+Obj = PyLidar3.YdLidarX4("com6") #windows
 # if(Obj.Connect()):
 #     print(Obj.GetDeviceInfo())
 #     print(Obj.GetCurrentFrequency())
@@ -57,8 +59,8 @@ else:
 # #In linux type in terminal -- ls /dev/tty*
 # #port = input("Enter port name which lidar is connected:com6") #windows
 # #port = "/dev/ttyUSB0" #linux
-port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #windows
-Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001")
+# port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #mac
+# Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001") #mac
 # if(Obj.Connect()):
 #     print(Obj.GetDeviceInfo())
 #     gen = Obj.StartScanning()
@@ -104,7 +106,7 @@ def draw():
         for i in range(len(x_clusters)):
             color = colors[i % len(colors)]
             plt.scatter(x_clusters[i], y_clusters[i], c=color, s=8)
-            plt.show()
+        plt.show()
         # plt.pause(0.001)
         plt.pause(0.01)
     plt.close("all")
@@ -124,7 +126,7 @@ for _ in range(360):
 #Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size) 
 # port =  input("Enter port name which lidar is connected:/dev/ttyUSB0") #windows
 # Obj = PyLidar3.YdLidarX4(port) #PyLidar3.your_version_of_lidar(port,chunk_size) 
-threading.Thread(target=draw).start()
+# threading.Thread(target=draw).start()
 if(Obj.Connect()):
     print(Obj.GetDeviceInfo())
     print(Obj.GetDeviceInfo())
@@ -158,6 +160,7 @@ if(Obj.Connect()):
         # print(x_clusters)
         # print(y_clusters)            
     print(n_clusters_)    
+    draw()
     is_plot = False
     Obj.StopScanning()
     Obj.Disconnect()
