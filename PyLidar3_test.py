@@ -122,7 +122,6 @@ for _ in range(360):
 
 #port =  input("Enter port name which lidar is connected:com6") #windows
 #Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size) 
->>>>>>> Stashed changes
 # port =  input("Enter port name which lidar is connected:/dev/ttyUSB0") #windows
 # Obj = PyLidar3.YdLidarX4(port) #PyLidar3.your_version_of_lidar(port,chunk_size) 
 threading.Thread(target=draw).start()
