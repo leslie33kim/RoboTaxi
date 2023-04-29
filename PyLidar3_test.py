@@ -5,31 +5,10 @@
 
 import PyLidar3
 import matplotlib.pyplot as plt
-# port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #mac
-port = input("Enter port name which lidar is connected:com6") #windows
-# Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001") #mac
-Obj = PyLidar3.YdLidarX4("com6") #windows
-# if(Obj.Connect()):
-#     print(Obj.GetDeviceInfo())
-#     print(Obj.GetCurrentFrequency())
-#     Obj.IncreaseCurrentFrequency(PyLidar3.FrequencyStep.oneTenthHertz)
-#     print(Obj.GetCurrentFrequency())
-#     Obj.DecreaseCurrentFrequency(PyLidar3.FrequencyStep.oneHertz)
-#     print(Obj.GetCurrentFrequency())
-#     Obj.Disconnect()
-# else:
-#     print("Error connecting to device")
-
-# import PyLidar3
-# from sklearn.cluster import DBSCAN
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import time # Time module
-# #Serial port to which lidar connected, Get it from device manager windows
-# #In linux type in terminal -- ls /dev/tty*
-# port = input("Enter port name which lidar is connected:com6") #windows
-# #port = "/dev/ttyUSB0" #linux
-# Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size)
+port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #mac
+#port = input("Enter port name which lidar is connected:com6") #windows
+Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001") #mac
+#Obj = PyLidar3.YdLidarX4("com6") #windows
 
 from sklearn.cluster import DBSCAN
 import PyLidar3
@@ -43,29 +22,11 @@ import time # Time module
 #port = input("Enter port name which lidar is connected:com6") #windows
 #port = "/dev/ttyUSB0" #linux
 #Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size)
-if(Obj.Connect()):
-    print(Obj.GetDeviceInfo())
-    gen = Obj.StartScanning()
-    t = time.time() # start time
-    while (time.time() - t) < 10: #scan for 30 seconds
-        print(next(gen))
-        time.sleep(0.5)
-    Obj.StopScanning()
-    Obj.Disconnect()
-else:
-    print("Error connecting to device")
-# import time # Time module
-# #Serial port to which lidar connected, Get it from device manager windows
-# #In linux type in terminal -- ls /dev/tty*
-# #port = input("Enter port name which lidar is connected:com6") #windows
-# #port = "/dev/ttyUSB0" #linux
-# port = input("Enter port name which lidar is connected:/dev/tty.usbserial-0001") #mac
-# Obj = PyLidar3.YdLidarX4("/dev/tty.usbserial-0001") #mac
 # if(Obj.Connect()):
 #     print(Obj.GetDeviceInfo())
 #     gen = Obj.StartScanning()
 #     t = time.time() # start time
-#     while (time.time() - t) < 30: #scan for 30 seconds
+#     while (time.time() - t) < 10: #scan for 30 seconds
 #         print(next(gen))
 #         time.sleep(0.5)
 #     Obj.StopScanning()
@@ -73,7 +34,7 @@ else:
 # else:
 #     print("Error connecting to device")
 
-import threading
+#import threading
 import PyLidar3
 import matplotlib.pyplot as plt
 import math    
@@ -87,27 +48,19 @@ def draw():
     while is_plot:
         plt.figure(1)
         plt.cla()
-        # plt.ylim(-9000,9000)
-        # plt.xlim(-9000,9000)
-        # plt.ylim(-5000,5000)
-        # plt.xlim(-5000,5000)
-        # plt.ylim(-3000,3000)
-        # plt.xlim(-3000,3000)
-        plt.ylim(-2000,2000)
-        plt.xlim(-2000,2000)
-        # plt.ylim(-500,500)
-        # plt.xlim(-500,500)
-        # plt.ylim(-200,200)
-        # plt.xlim(-200,200)
-        #plt.scatter(x,y,c='r',s=8)
-        colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
-        # plt.ylim(-200,200)
-        # plt.xlim(-200,200)
+        plt.ylim(-1000,1000)
+        plt.xlim(-1000,1000)
+        colors = ['g', 'b', 'c', 'm', 'y', 'k']
         for i in range(len(x_clusters)):
             color = colors[i % len(colors)]
             plt.scatter(x_clusters[i], y_clusters[i], c=color, s=8)
+            # center_x = np.mean(x_clusters[i])
+            # center_y = np.mean(y_clusters[i])
+        x_centers = [center_points[label]['x'] for label in center_points]
+        y_centers = [center_points[label]['y'] for label in center_points]
+        # Plot the center points (color=red)
+        plt.scatter(x_centers, y_centers, c = 'r', s=8, alpha=1.0, marker='X')
         plt.show()
-        # plt.pause(0.001)
         plt.pause(0.01)
     plt.close("all")
 
@@ -121,11 +74,6 @@ for _ in range(360):
     x.append(0)
     y.append(0)
 
-
-#port =  input("Enter port name which lidar is connected:com6") #windows
-#Obj = PyLidar3.YdLidarX4("com6") #PyLidar3.your_version_of_lidar(port,chunk_size) 
-# port =  input("Enter port name which lidar is connected:/dev/ttyUSB0") #windows
-# Obj = PyLidar3.YdLidarX4(port) #PyLidar3.your_version_of_lidar(port,chunk_size) 
 # threading.Thread(target=draw).start()
 if(Obj.Connect()):
     print(Obj.GetDeviceInfo())
@@ -141,25 +89,25 @@ if(Obj.Connect()):
                 features = np.column_stack((x, y))
 
     # eps: maximum distance between clusters, min_samples: minimum number of points in clusters
-    dbscan = DBSCAN(eps=130, min_samples=4).fit(features)
+    dbscan = DBSCAN(eps=90, min_samples=4).fit(features)
     labels = dbscan.labels_
-    # Number of meaningful clusters in labels, ignoring noise if present.
+    # Number of meaningful clusters in labels, ignoring noise if present
     n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise_ = list(labels).count(-1)
     #labels = dbscan.fit_predict(features)
     unique_labels = set(labels)
+    center_points = {}  # dictionary to store center points
     for label in unique_labels: 
         if label == -1:
             # Skip outliers
             continue
         mask = (labels == label)
         print(mask)
-        #print(mask)
         x_clusters.append(np.array(x)[mask])
         y_clusters.append(np.array(y)[mask])
-        # print(x_clusters)
-        # print(y_clusters)            
-    print(n_clusters_)    
+        center_points[label] = {'x': np.mean(np.array(x)[mask]), 'y': np.mean(np.array(y)[mask])}           
+    print(n_clusters_) 
+    print(center_points)   
     draw()
     is_plot = False
     Obj.StopScanning()

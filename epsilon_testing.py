@@ -9,7 +9,7 @@ import threading
 #using K-nearest neighbor algorithm to find the eps value for DBSCAN
 from sklearn.cluster import DBSCAN
 port = "/dev/tty.usbserial-0001" #mac
-port = "com6" #windows
+#port = "com6" #windows
 Obj = PyLidar3.YdLidarX4(port)
 
 x=[]
@@ -37,7 +37,12 @@ if(Obj.Connect()):
     distances, indices = neighbors_fit.kneighbors(features)
     distances = np.sort(distances, axis=0)
     distances = distances[:,1]
-    print("alkfjasldk")
+
+    # Compute elbow point using second derivative
+    gradients = np.gradient(np.gradient(distances))
+    elbow_index = np.argmax(gradients)
+    elbow_value = distances[elbow_index]
+    print(elbow_value)
     plt.plot(distances)
     plt.show()
     #try epsilon = 120
