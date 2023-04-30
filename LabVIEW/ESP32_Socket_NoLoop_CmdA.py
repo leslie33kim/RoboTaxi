@@ -1,4 +1,3 @@
-# Load appropriate libraries
 import network
 import socket
 import binascii
@@ -9,9 +8,7 @@ gc.collect()
 import esp
 esp.osdebug(None)
 
-import time
-import machine
-from machine import Pin,Timer,PWM
+from machine import Pin, PWM   
 from time import sleep
 
 class DCMotor:      
@@ -81,25 +78,6 @@ s.bind(('', 80))
 s.listen(30)
 print('socket')
 
-LED_BLINK_TIMER_CLOCK_ms = 1000
-timer_period = 1000
-led_blink_active_flag = 1
-ledstate = 1
-timer_interrupt_flag = 1
-
-def toggle_led(timer):
-    global ledstate
-    ledstate = ledstate^1
-    if led_blink_active_flag == 1:
-        led(ledstate)
-
-led = Pin(15, mode=Pin.OUT)
-led(ledstate)
-t1 = Timer(1)
-t1.init(period=LED_BLINK_TIMER_CLOCK_ms, mode=t1.PERIODIC, callback=toggle_led)
-
-print('\r\nESP32 Ready to accept Commands\r\n')
-
 while True:
     print('waiting for connection')
     conn, addr = s.accept()
@@ -123,66 +101,17 @@ while True:
     dc_motorL = DCMotor(pinLf, pinLb, enableL, 350, 1023)
     dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
     dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
-
     while(1):
-        Command = conn.recv(1024)
-        if Command == 'T':
-            if led_blink_active_flag == 1:
-                print("TLED blinking paused \r\n")
-            else:
-                print("TLED blinking resumed \r\n")
-            led_blink_active_flag ^= 1
-        elif Command == 'A':
+        Command=request
+        Command=str(Command)[2]
+        # print('after conn.recv for motor cmds')
+        # if Command == bytes('A','ascii'):
+        if Command == 'A':
             print('AReceived the A command\r\n')
             #timer_period = LED_BLINK_TIMER_CLOCK_ms
             #t1.init(period=timer_period,callback=toggle_led)
-            dc_motorL.forward(100) # motor is running
+            dc_motorL.forward(100) 
             dc_motorR.forward(100)
-            #print("AMove Forward")
-        elif Command == 'B':
-            print('BReceived the B command\r\n')
-            #timer_period=timer_period-100
-            #t1.init(period=timer_period,callback=toggle_led)
-            #if timer_period <= 200:
-             #   timer_period = 200
-            dc_motorL.backwards(100) # the motor turns in the opposite direction
-            dc_motorR.backwards(100) # the motor turns in the opposite direction
-            #print("BMove Backward")
-        elif Command == 'C':
-            print('CReceived the C command\r\n')
-            timer_period = LED_BLINK_TIMER_CLOCK_ms
-            t1.init(period=timer_period,callback=toggle_led)
-        elif Command == 'D':
-            print('DReceived the D command\r\n')
-            timer_period=timer_period-100
-            t1.init(period=timer_period,callback=toggle_led)
-            if timer_period <= 200:
-                timer_period = 200
-        elif Command == 'E':
-            print('EReceived the E command\r\n')
-            timer_period = LED_BLINK_TIMER_CLOCK_ms
-            t1.init(period=timer_period,callback=toggle_led)
-        elif Command == 'F':
-            print('FReceived the F command\r\n')
-            timer_period=timer_period-100
-            t1.init(period=timer_period,callback=toggle_led)
-            if timer_period <= 200:
-                timer_period = 200
-        elif Command == 'G':
-            print('GReceived the G command\r\n')
-            timer_period = LED_BLINK_TIMER_CLOCK_ms
-            t1.init(period=timer_period,callback=toggle_led)
-        elif Command == 'H':
-            print('HReceived the H command\r\n')
-            timer_period=timer_period-100
-            t1.init(period=timer_period,callback=toggle_led)
-            if timer_period <= 200:
-                timer_period = 200
-        elif Command == 'I':
-            print('IESP32\r\n')
-        elif Command == 'J':
-            print('JReceived the J command\r\n')
-            #timer_period = LED_BLINK_TIMER_CLOCK_ms
-            #t1.init(period=timer_period,callback=toggle_led)
-            dc_motorL.stop() # stops motor
-            dc_motorR.stop() # stops motor
+            sleep(20)
+            # dc_motorL.stop()
+        conn.close()
