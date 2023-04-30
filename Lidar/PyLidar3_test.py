@@ -59,7 +59,7 @@ def draw():
         x_centers = [center_points[label]['x'] for label in center_points]
         y_centers = [center_points[label]['y'] for label in center_points]
         # Plot the center points (color=red)
-        plt.scatter(x_centers, y_centers, c = 'r', s=8, alpha=1.0, marker='X')
+        plt.scatter(x_centers, y_centers, c = 'r', s=12, alpha=1.0, marker='X')
         plt.show()
         plt.pause(0.01)
     plt.close("all")
@@ -89,7 +89,7 @@ if(Obj.Connect()):
                 features = np.column_stack((x, y))
 
     # eps: maximum distance between clusters, min_samples: minimum number of points in clusters
-    dbscan = DBSCAN(eps=90, min_samples=4).fit(features)
+    dbscan = DBSCAN(eps=140, min_samples=4).fit(features)
     labels = dbscan.labels_
     # Number of meaningful clusters in labels, ignoring noise if present
     n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
@@ -103,8 +103,13 @@ if(Obj.Connect()):
             continue
         mask = (labels == label)
         print(mask)
-        x_clusters.append(np.array(x)[mask])
-        y_clusters.append(np.array(y)[mask])
+        x_cluster = np.array(x)[mask]
+        y_cluster = np.array(y)[mask]
+        #set cluster threshold 
+        if len(x_cluster) < 10:
+            continue
+        x_clusters.append(x_cluster)
+        y_clusters.append(y_cluster)
         center_points[label] = {'x': np.mean(np.array(x)[mask]), 'y': np.mean(np.array(y)[mask])}           
     print(n_clusters_) 
     print(center_points)   
