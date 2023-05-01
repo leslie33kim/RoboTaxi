@@ -62,7 +62,7 @@ class Lidar:
                 #Calculate distance from lidar ty center of each cluster
                 center_distance = math.sqrt(center_point['x']**2 + center_point['y']**2)
                 self.cluster_info[label] = (center_distance, center_angle)
-                
+                #dj
                 self.x_clusters.append(x_cluster)
                 self.y_clusters.append(y_cluster)
                 #self.center_points[label] = {'x': np.mean(np.array(self.x)[mask]), 'y': np.mean(np.array(self.y)[mask])}
