@@ -6,7 +6,8 @@ from PyLidar_class import Lidar
 from sklearn.neighbors import NearestNeighbors
 
 # Initialize Lidar object
-lidar = Lidar("/dev/tty.usbserial-0001")
+# lidar = Lidar("/dev/tty.usbserial-0001") # mac
+lidar = Lidar("com6") # mac
 
 if lidar.connect():
     lidar.start_scanning(scan_time=5, eps=90, min_samples=4)
@@ -18,7 +19,9 @@ if lidar.connect():
     distances, indices = neighbors_fit.kneighbors(features)
     distances = np.sort(distances, axis=0)
     distances = distances[:, 1]
-    gradients = np.gradient(np.gradient(distances))
+    print('dis',distances)
+    gradients = np.gradient(distances)
+    print('grad',gradients)
     elbow_index = np.argmax(gradients)
     elbow_value = distances[elbow_index]
     print("Elbow value:", elbow_value)

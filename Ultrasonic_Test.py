@@ -15,7 +15,7 @@ echo_pinL = 15
 trig_pinB = 22
 echo_pinB = 14
 
-US_SensorR = Ultrasonic_Class.HCSR04(trigger_pin = trig_PinR, echo_pin = echo_pinR, echo_timeout_us=10000)
+US_SensorR = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinR, echo_pin = echo_pinR, echo_timeout_us=10000)
 US_SensorL = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinL, echo_pin = echo_pinL, echo_timeout_us=10000)
 US_SensorB = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinB, echo_pin = echo_pinB, echo_timeout_us=10000)
 

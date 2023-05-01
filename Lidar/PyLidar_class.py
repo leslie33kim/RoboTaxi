@@ -27,7 +27,7 @@ class Lidar:
             return False
     
     #Start lidar scanning process
-    def start_scanning(self, scan_time=5, eps=140, min_samples=4):
+    def start_scanning(self, scan_time=5, eps=90, min_samples=4):
         self.x = [0] * 360
         self.y = [0] * 360
         gen = self.Obj.StartScanning()
@@ -45,6 +45,7 @@ class Lidar:
             self.x_clusters = []
             self.y_clusters = []
             self.center_points = {}
+            self.cluster_distances = {}
             unique_labels = set(labels)
             for label in unique_labels:
                 if label == -1:
@@ -52,11 +53,20 @@ class Lidar:
                 mask = (labels == label)
                 x_cluster = np.array(self.x)[mask]
                 y_cluster = np.array(self.y)[mask]
-                if len(x_cluster) < 10:
-                    continue
+                center_point = {'x': np.mean(x_cluster), 'y': np.mean(y_cluster)}
+                self.center_points[label] = center_point
+                #Calculate distance from lidar ty center of each cluster
+                distance = math.sqrt(center_point['x']**2 + center_point['y']**2)
+                self.cluster_distances[label] = distance
+
                 self.x_clusters.append(x_cluster)
                 self.y_clusters.append(y_cluster)
-                self.center_points[label] = {'x': np.mean(np.array(self.x)[mask]), 'y': np.mean(np.array(self.y)[mask])}
+                #self.center_points[label] = {'x': np.mean(np.array(self.x)[mask]), 'y': np.mean(np.array(self.y)[mask])}
+                #center_point = {'x': np.mean(np.array(self.x)[mask]), 'y': np.mean(np.array(self.y)[mask])}
+                # calculate distance from each point to center point
+                # distances = [math.sqrt((x - center_point['x'])**2 + (y - center_point['y'])**2) for x, y in zip(x_cluster, y_cluster)]
+                # self.cluster_distances[label] = distances
+            #print(self.center_points)
             #print(f"Number of clusters: {len(self.x_clusters)}")
     
     def stop_scanning(self):
@@ -76,6 +86,7 @@ class Lidar:
         y_centers = [self.center_points[label]['y'] for label in self.center_points]
         plt.scatter(x_centers, y_centers, c='r', s=12, alpha=1.0, marker='X')
         plt.show()
+
         
     # return list of x-coords of points in each cluster
     def get_x_clusters(self):
@@ -93,3 +104,19 @@ class Lidar:
     def get_num_points(self):
         num_points = [len(cluster) for cluster in self.x_clusters]
         return num_points
+     
+    # returns distance from lidar to cluster 
+    def get_cluster_distance(self): 
+        return self.cluster_distances
+
+    #object detection using cluster distance (set threshold)
+    def object_detection(self, max_distance=500):
+        cluster_distances = self.get_cluster_distance()
+        detected_objects = []
+        for label, distance in cluster_distances.items():
+            if distance <= max_distance:
+                num_points = len(self.x_clusters[label])
+                object_data = {'label': label, 'distance': distance, 'num_points': num_points}
+                detected_objects.append(object_data)
+        return detected_objects
+
