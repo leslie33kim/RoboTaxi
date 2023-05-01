@@ -12,12 +12,12 @@ trig_pinR = 33
 echo_pinR = 27
 trig_pinL = 32
 echo_pinL = 15
-#trig_pinB = 5
-#echo_pinB = 6
+trig_pinB = 22
+echo_pinB = 14
 
 US_SensorR = Ultrasonic_Class.HCSR04(trigger_pin = trig_PinR, echo_pin = echo_pinR, echo_timeout_us=10000)
 US_SensorL = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinL, echo_pin = echo_pinL, echo_timeout_us=10000)
-#US_SensorB = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinB, echo_pin = echo_pinB, echo_timeout_us=10000)
+US_SensorB = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinB, echo_pin = echo_pinB, echo_timeout_us=10000)
 
 #distR = US_SensorR.distance_cm()
 #distL = US_SensorL.distance_cm()
@@ -26,5 +26,8 @@ US_SensorL = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinL, echo_pin = echo_pi
 While True:
     distR = US_SensorR.distance_cm()
     distL = US_SensorL.distance_cm()
+    distB = US_SensorB.distance_cm()
     print("distance from right ultrasonic: " + distR + " cm")
     print("distance from left ultrasonic:" + distL + "cm")
+    print("distance from back ultrasonic:" + distB + "cm")
+
