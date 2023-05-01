@@ -52,9 +52,12 @@ class Lidar:
                 if label == -1:
                     continue
                 mask = (labels == label)
+                print('masklen',len(mask))
                 x_cluster = np.array(self.x)[mask]
                 y_cluster = np.array(self.y)[mask]
-                angle_cluster = np.array(range(0, 360, 2))[mask] # create array of angles for cluster
+                print('xlen',len(x_cluster))
+                angle_cluster = np.array(range(0, 360, 1))[mask] # create array of angles for cluster
+                print('anglelen',len(angle_cluster))
                 center_point = {'x': np.mean(x_cluster), 'y': np.mean(y_cluster)}
                 center_angle = np.mean(angle_cluster) # calculate mean angle for cluster
                 self.center_points[label] = center_point
