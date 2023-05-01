@@ -45,7 +45,8 @@ class Lidar:
             self.x_clusters = []
             self.y_clusters = []
             self.center_points = {}
-            self.cluster_distances = {}
+            self.center_angles = {}
+            self.cluster_info = {}
             unique_labels = set(labels)
             for label in unique_labels:
                 if label == -1:
@@ -54,11 +55,13 @@ class Lidar:
                 x_cluster = np.array(self.x)[mask]
                 y_cluster = np.array(self.y)[mask]
                 center_point = {'x': np.mean(x_cluster), 'y': np.mean(y_cluster)}
+                center_angles = {'x': np.mean(np.array(self.x[angle])[mask]), 'x': np.mean(np.array(self.y[angle])[mask])}
                 self.center_points[label] = center_point
+                self.center_angles[label] = center_angles
                 #Calculate distance from lidar ty center of each cluster
-                distance = math.sqrt(center_point['x']**2 + center_point['y']**2)
-                self.cluster_distances[label] = distance
-
+                center_distance = math.sqrt(center_point['x']**2 + center_point['y']**2)
+                self.cluster_info[label] = (center_distance, center_angles)
+                
                 self.x_clusters.append(x_cluster)
                 self.y_clusters.append(y_cluster)
                 #self.center_points[label] = {'x': np.mean(np.array(self.x)[mask]), 'y': np.mean(np.array(self.y)[mask])}
@@ -106,8 +109,8 @@ class Lidar:
         return num_points
      
     # returns distance from lidar to cluster 
-    def get_cluster_distance(self): 
-        return self.cluster_distances
+    def get_cluster_info(self): 
+        return self.cluster_info
 
     #object detection using cluster distance (set threshold)
     def object_detection(self, max_distance=500):
