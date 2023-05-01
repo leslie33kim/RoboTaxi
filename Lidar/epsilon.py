@@ -19,7 +19,9 @@ if lidar.connect():
     distances, indices = neighbors_fit.kneighbors(features)
     distances = np.sort(distances, axis=0)
     distances = distances[:, 1]
-    gradients = np.gradient(np.gradient(distances))
+    print('dis',distances)
+    gradients = np.gradient(distances)
+    print('grad',gradients)
     elbow_index = np.argmax(gradients)
     elbow_value = distances[elbow_index]
     print("Elbow value:", elbow_value)

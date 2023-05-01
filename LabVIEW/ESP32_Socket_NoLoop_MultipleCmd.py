@@ -22,14 +22,14 @@ class DCMotor:
   def forward(self,speed):
     self.speed = speed
     self.enable_pin.duty(self.duty_cycle(self.speed))
-    self.pin1.value(0)
-    self.pin2.value(1)
+    self.pin1.value(1)
+    self.pin2.value(0)
     
   def backward(self, speed):
     self.speed = speed
     self.enable_pin.duty(self.duty_cycle(self.speed))
-    self.pin1.value(1)
-    self.pin2.value(0)
+    self.pin1.value(0)
+    self.pin2.value(1)
 
   def stop(self):
     self.enable_pin.duty(0)
@@ -108,14 +108,35 @@ while(1):
     if Command == 'A':
         dc_motorL.forward(100) 
         dc_motorR.forward(100)
-        #sleep(10)
-        #dc_motorL.stop()
-        #dc_motorR.stop()
     elif Command == 'B':
         dc_motorL.backward(100) 
         dc_motorR.backward(100)
-        #sleep(10)
-        #dc_motorL.stop()
-        #dc_motorR.stop()
-conn.close()
-
+    elif Command == 'C':
+        dc_motorL.forward(60) 
+        dc_motorR.forward(100)
+    elif Command == 'D':
+        dc_motorL.forward(100) 
+        dc_motorR.forward(60)
+    elif Command == 'E':
+        dc_motorL.stop() 
+        dc_motorR.stop()
+    elif Command == 'F': # Track 1
+        # Straight run from (0,0)
+        dc_motorL.forward(100) 
+        dc_motorR.forward(100)
+        sleep(20)
+        # First semi-circle
+        dc_motorL.forward(100)  
+        dc_motorR.forward(60)
+        sleep(10)
+        # Straight run after first semi-circle
+        dc_motorL.forward(100) 
+        dc_motorR.forward(100)
+        sleep(20)
+        # Second semi-circle to close the loop
+        dc_motorL.forward(100)  
+        dc_motorR.forward(60)
+        sleep(10)
+        dc_motorL.stop()
+        dc_motorR.stop()
+    conn.close()
