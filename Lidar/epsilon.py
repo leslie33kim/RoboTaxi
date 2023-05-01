@@ -6,7 +6,8 @@ from PyLidar_class import Lidar
 from sklearn.neighbors import NearestNeighbors
 
 # Initialize Lidar object
-lidar = Lidar("/dev/tty.usbserial-0001")
+# lidar = Lidar("/dev/tty.usbserial-0001") # mac
+lidar = Lidar("com6") # mac
 
 if lidar.connect():
     lidar.start_scanning(scan_time=5, eps=90, min_samples=4)

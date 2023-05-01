@@ -106,8 +106,8 @@ if(Obj.Connect()):
         x_cluster = np.array(x)[mask]
         y_cluster = np.array(y)[mask]
         #set cluster threshold 
-        if len(x_cluster) < 10:
-            continue
+        # if len(x_cluster) < 10:
+        #     continue
         x_clusters.append(x_cluster)
         y_clusters.append(y_cluster)
         center_points[label] = {'x': np.mean(np.array(x)[mask]), 'y': np.mean(np.array(y)[mask])}           
