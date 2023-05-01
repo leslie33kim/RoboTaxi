@@ -1,6 +1,7 @@
 from PyLidar_class import Lidar
 
-lidar = Lidar(port="/dev/tty.usbserial-0001")
+# lidar = Lidar(port="/dev/tty.usbserial-0001")
+lidar = Lidar(port="com6")
 if lidar.connect(): 
     lidar.start_scanning(scan_time=5, eps=90, min_samples=4)
     num_clusters = lidar.get_num_clusters()
