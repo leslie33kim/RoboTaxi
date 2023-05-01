@@ -91,6 +91,7 @@ dc_motorL = DCMotor(pinLf, pinLb, enableL, 350, 1023)
 dc_motorL = DCMotor(pinLf, pinLb, enableL, 350, 1023)
 dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
 dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
+
 while(1):
     print('waiting for connection')
     conn, addr = s.accept()
@@ -122,9 +123,21 @@ while(1):
         dc_motorR.stop()
     elif Command == 'F': # Track 1
         # Straight run from (0,0)
-        dc_motorL.forward(100) 
-        dc_motorR.forward(100)
-        sleep(20)
+        for i in range(200):
+            conn.close()
+            conn, addr = s.accept()
+            request = conn.recv(1024)
+            Command=str(request)[2]
+            if Command == 'E':
+                dc_motorL.stop() 
+                dc_motorR.stop()
+                break
+            dc_motorL.forward(100) 
+            dc_motorR.forward(100)
+            sleep(0.1)
+        if Command == 'E':
+            conn.close()
+            continue
         # First semi-circle
         dc_motorL.forward(100)  
         dc_motorR.forward(60)
@@ -140,3 +153,4 @@ while(1):
         dc_motorL.stop()
         dc_motorR.stop()
     conn.close()
+
