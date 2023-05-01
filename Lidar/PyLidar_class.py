@@ -54,13 +54,14 @@ class Lidar:
                 mask = (labels == label)
                 x_cluster = np.array(self.x)[mask]
                 y_cluster = np.array(self.y)[mask]
+                angle_cluster = np.array(range(0, 360, 2))[mask] # create array of angles for cluster
                 center_point = {'x': np.mean(x_cluster), 'y': np.mean(y_cluster)}
-                center_angles = {'x': np.mean(np.array(self.x[angle])[mask]), 'x': np.mean(np.array(self.y[angle])[mask])}
+                center_angle = np.mean(angle_cluster) # calculate mean angle for cluster
                 self.center_points[label] = center_point
-                self.center_angles[label] = center_angles
+                self.center_angles[label] = center_angle
                 #Calculate distance from lidar ty center of each cluster
                 center_distance = math.sqrt(center_point['x']**2 + center_point['y']**2)
-                self.cluster_info[label] = (center_distance, center_angles)
+                self.cluster_info[label] = (center_distance, center_angle)
                 
                 self.x_clusters.append(x_cluster)
                 self.y_clusters.append(y_cluster)

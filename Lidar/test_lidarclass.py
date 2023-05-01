@@ -7,7 +7,7 @@ if lidar.connect():
     x_clusters = lidar.get_x_clusters()
     y_clusters = lidar.get_y_clusters()
     num_points = lidar.get_num_points()
-    cluster_dist = lidar.get_cluster_distance()
+    cluster_dist = lidar.get_cluster_info()
     print(f"Number of clusters: {num_clusters}")
     print(f"Number of points in each cluster: {num_points}")
     print(f"Distance to each cluster: {cluster_dist}")
