@@ -10,28 +10,60 @@ class Maneuver:
         self.maneuver_obj = man_obj
 
     def maneuver_L(self):
-#    dc_motorR.forward(100)
+    dc_motorR.forward(60)
     dc_motorL.forward(100)
-#    sleep(10)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
     dc_motorR.forward(100)
-#    sleep(10)
+    dc_motorL.forward(60)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
     dc_motorR.forward(100)
-#    sleep(10)
+    dc_motorL.forward(60)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
  
     def maneuver_R(self):
     dc_motorR.forward(100)
-#    dc_motorL.forward(100)
-#    sleep(10)
+    dc_motorL.forward(60)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
+    dc_motorR.forward(60)
     dc_motorL.forward(100)
-#    sleep(10)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
+    dc_motorR.forward(60)
     dc_motorL.forward(100)
-#    sleep(10)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
 
     def maneuver_F(self):
+    dc_motorR.forward(100)
+    dc_motorL.forward(60)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
+    dc_motorR.forward(60)
     dc_motorL.forward(100)
-#    sleep(10)
-    dc_motorR.forward(100)
-#    sleep(10)
-    dc_motorR.forward(100)
-#    sleep(10)
- 
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
+
+    dc_motorR.forward(60)
+    dc_motorL.forward(100)
+    sleep(1.7)
+    dc_motorL.stop()
+    dc_motorR.stop()
