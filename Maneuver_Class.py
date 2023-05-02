@@ -1,5 +1,4 @@
 # Write your code here :-)
-import Ultrasonic_Class #Declared as class HCSR04
 import DCmotor
 
 class Maneuver:
