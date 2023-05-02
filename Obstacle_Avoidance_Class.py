@@ -24,9 +24,9 @@ class Obstacle_Avoidance:
         distL = self.ultrasonic_objL.distance_cm()
         distR = self.ultrasonic_objR.distance_cm()
         distF = self.ultrasonic_objF.distance_cm()
-        flag = false
+        flag = False
 
-        if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
+        if distL < 10 and distL > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgL = "Avoiding object on left"
             self.maneuver_obj.maneuver_R #Turn right
             self.maneuver_obj.maneuver_F #Go forward
@@ -35,9 +35,10 @@ class Obstacle_Avoidance:
             self.maneuver_obj.maneuver_L #Turn left
             self.maneuver_obj.maneuver_F #Go forward
             self.maneuver_obj.maneuver_R #Turn right
-            flag = true
+            print(msgL)
+            flag = True
 
-        else if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
+        elif distR < 10 and distR > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgR = "Avoiding object on right"
             self.maneuver_obj.maneuver_L #Turn left
             self.maneuver_obj.maneuver_F #Go forward
@@ -46,9 +47,10 @@ class Obstacle_Avoidance:
             self.maneuver_obj.maneuver_R #Turn right
             self.maneuver_obj.maneuver_F #Go forward
             self.maneuver_obj.maneuver_L #Turn left
-            flag = true
+            print(msgR)
+            flag = True
 
-        else if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
+        elif distF < 10 and distF > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgF = "Avoiding object in front"
             self.maneuver_obj.maneuver_R #Turn right
             self.maneuver_obj.maneuver_F #Go forward
@@ -57,7 +59,8 @@ class Obstacle_Avoidance:
             self.maneuver_obj.maneuver_L #Turn left
             self.maneuver_obj.maneuver_F #Go forward
             self.maneuver_obj.maneuver_R #Turn right
-            flag = true
+            print(msgF)
+            flag = True
 
         return msgL + msgR + msgF
 #    def check_distance_mm(self):

@@ -112,13 +112,13 @@ while(1):
     elif Command == 'C':
         response = 'Left'
         conn.send(response)
-        # dc_motorL.forward(0) 
+        dc_motorL.forward(60) 
         dc_motorR.forward(100)
     elif Command == 'D':
         response = 'Right'
         conn.send(response)
         dc_motorL.forward(100) 
-        # dc_motorR.forward(0)
+        dc_motorR.forward(60)
     elif Command == 'E':
         response = 'Stop'
         conn.send(response)
@@ -130,36 +130,55 @@ while(1):
         # Straight run from (0,0)
         dc_motorL.forward(100) 
         dc_motorR.forward(100)
-        for i in range(50):
-            conn.close()
-            conn, addr = s.accept()
-            request = conn.recv(1024)
-            Command=str(request)[2]
-            if Command == 'E':
-                dc_motorL.stop() 
-                dc_motorR.stop()
-                break
-            sleep(0.1)
-        if Command == 'E':
-            conn.close()
-            continue
-        dc_motorL.stop()
-        dc_motorR.stop()
-        # First semi-circle
-        dc_motorL.forward(100)  
-        # dc_motorR.forward(0)
+        # for i in range(20):
+        #     if Command == 'E':
+        #         conn.close()
+        #         conn, addr = s.accept()
+        #         request = conn.recv(1024)
+        #         Command=str(request)[2]
+        #         dc_motorL.stop() 
+        #         dc_motorR.stop()
+        #         break
+        #     sleep(0.1)
+        # if Command == 'E':
+        #     conn.close()
+        #     continue
         sleep(5)
         dc_motorL.stop()
         dc_motorR.stop()
-        # Straight run after first semi-circle
+        # First turn
+        dc_motorL.forward(100)  
+        dc_motorR.forward(60)
+        sleep(1.7)
+        dc_motorL.stop()
+        dc_motorR.stop()
+        # Straight run after first turn
         dc_motorL.forward(100) 
         dc_motorR.forward(100)
         sleep(5)
         dc_motorL.stop()
         dc_motorR.stop()
-        # Second semi-circle to close the loop
+        # Second turn
         dc_motorL.forward(100)  
-        # dc_motorR.forward(0)
+        dc_motorR.forward(60)
+        sleep(1.7)
+        dc_motorL.stop()
+        dc_motorR.stop()
+        # Straight run after second turn
+        dc_motorL.forward(100) 
+        dc_motorR.forward(100)
+        sleep(5)
+        dc_motorL.stop()
+        dc_motorR.stop()
+        # Third turn
+        dc_motorL.forward(100)  
+        dc_motorR.forward(60)
+        sleep(1.7)
+        dc_motorL.stop()
+        dc_motorR.stop()
+        # Straight run after third turn
+        dc_motorL.forward(100) 
+        dc_motorR.forward(100)
         sleep(5)
         dc_motorL.stop()
         dc_motorR.stop()
@@ -168,6 +187,6 @@ while(1):
         conn.send(response)
         # Circular-loop
         dc_motorL.forward(100)  
-        # dc_motorR.forward(0)
+        dc_motorR.forward(60)
     conn.close()
 

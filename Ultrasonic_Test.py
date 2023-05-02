@@ -23,11 +23,11 @@ US_SensorB = Ultrasonic_Class.HCSR04(trigger_pin = trig_pinB, echo_pin = echo_pi
 #distL = US_SensorL.distance_cm()
 #distB = US_SensorB.distance_cm()
 
-While True:
+while True:
     distR = US_SensorR.distance_cm()
     distL = US_SensorL.distance_cm()
-    distB = US_SensorB.distance_cm()
-    print("distance from right ultrasonic: " + distR + " cm")
-    print("distance from left ultrasonic:" + distL + "cm")
-    print("distance from back ultrasonic:" + distB + "cm")
+    distF = US_SensorB.distance_cm()
+    print("distance from right ultrasonic: " + str(distR) + " cm")
+    print("distance from left ultrasonic:" + str(distL) + "cm")
+    print("distance from back ultrasonic:" + str(distF) + "cm")
 

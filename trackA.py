@@ -12,14 +12,14 @@ class DCMotor:
   def forward(self,speed):
     self.speed = speed
     self.enable_pin.duty(self.duty_cycle(self.speed))
-    self.pin1.value(0)
-    self.pin2.value(1)
+    self.pin1.value(1)
+    self.pin2.value(0)
     
   def backward(self, speed):
     self.speed = speed
     self.enable_pin.duty(self.duty_cycle(self.speed))
-    self.pin1.value(1)
-    self.pin2.value(0)
+    self.pin1.value(0)
+    self.pin2.value(1)
 
   def stop(self):
     self.enable_pin.duty(0)
