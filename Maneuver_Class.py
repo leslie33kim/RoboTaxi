@@ -10,12 +10,20 @@ class Maneuver:
         self.maneuver_obj = man_obj
 
     def maneuver_L(self):
+#    dc_motorR.forward(100)
+    dc_motorL.forward(100)
+#    sleep(10)
+    dc_motorR.forward(100)
+#    sleep(10)
+    dc_motorR.forward(100)
+#    sleep(10)
+ 
+    def maneuver_R(self):
     dc_motorR.forward(100)
 #    dc_motorL.forward(100)
 #    sleep(10)
-
-    def maneuver_R(self):
-#    dc_motorR.forward(100)
+    dc_motorL.forward(100)
+#    sleep(10)
     dc_motorL.forward(100)
 #    sleep(10)
 
