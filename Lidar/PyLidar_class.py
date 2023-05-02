@@ -4,6 +4,7 @@ import math
 import time
 from sklearn.cluster import DBSCAN
 import numpy as np
+import os
 
 class Lidar:
     def __init__(self, port):
@@ -92,7 +93,11 @@ class Lidar:
         x_centers = [self.center_points[label]['x'] for label in self.center_points]
         y_centers = [self.center_points[label]['y'] for label in self.center_points]
         plt.scatter(x_centers, y_centers, c='r', s=12, alpha=1.0, marker='X')
-        plt.show()
+        plt.show(block=False)
+        plt.pause(3)
+        plt.close()
+        my_path = os.path.abspath(__file__)
+        plt.savefig(my_path + '1.jpg')
 
         
     # return list of x-coords of points in each cluster
@@ -126,4 +131,3 @@ class Lidar:
                 object_data = {'label': label, 'distance': distance, 'num_points': num_points}
                 detected_objects.append(object_data)
         return detected_objects
-
