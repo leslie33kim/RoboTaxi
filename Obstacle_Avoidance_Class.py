@@ -24,24 +24,40 @@ class Obstacle_Avoidance:
         distL = self.ultrasonic_objL.distance_cm()
         distR = self.ultrasonic_objR.distance_cm()
         distF = self.ultrasonic_objF.distance_cm()
+        flag = false
 
-        if distL < 10:  #Checks if dist is less than 10 cm
+        if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
             msgL = "Avoiding object on left"
-            self.maneuver_obj.maneuverL #Update to Harpers class
-        else:
-            msgL = "No objects left within 10 cm. "
+            self.maneuver_obj.maneuver_R #Turn right
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_L #Turn left
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_L #Turn left
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_R #Turn right
+            flag = true
 
-        if distR < 10:  #Checks if dist is less than 10 cm
+        else if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
             msgR = "Avoiding object on right"
-            self.maneuver_obj.maneuverR #Update to Harpers class
-        else:
-            msgR = "No objects right within 10 cm. "
+            self.maneuver_obj.maneuver_L #Turn left
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_R #Turn right
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_R #Turn right
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_L #Turn left
+            flag = true
 
-        if distL < 10:  #Checks if dist is less than 10 cm
+        else if distL < 10 and flag != true:  #Checks if dist is less than 10 cm
             msgF = "Avoiding object in front"
-            self.maneuver_obj.maneuverF #Update to Harpers class
-        else:
-            msgF = "No objects in front within 10 cm. "
+            self.maneuver_obj.maneuver_R #Turn right
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_L #Turn left
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_L #Turn left
+            self.maneuver_obj.maneuver_F #Go forward
+            self.maneuver_obj.maneuver_R #Turn right
+            flag = true
 
         return msgL + msgR + msgF
 #    def check_distance_mm(self):
