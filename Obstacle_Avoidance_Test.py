@@ -27,8 +27,9 @@ maneuver = Maneuver(dc_motorL, dc_motorR)
 
 avoidance = Obstacle_Avoidance(US_SensorL, US_SensorR, US_SensorF, maneuver)
 
-# Straight run from (0,0)
-while(1):
-  dc_motorL.forward(100) 
-  dc_motorR.forward(100)
-  avoidance.check_surroundings()
+while True:
+    # Straight run from (0,0)
+    dc_motorL.forward(100) 
+    dc_motorR.forward(100)
+    avoidance.check_surroundings()
+    sleep(0.5)

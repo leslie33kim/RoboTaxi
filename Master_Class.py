@@ -1,5 +1,7 @@
 from time import sleep
+from time import sleep_us
 from machine import Pin
+from machine import time_pulse_us
 
 class DCMotor:      
   def __init__(self, pin1, pin2, enable_pin, min_duty=750, max_duty=1023):
@@ -45,17 +47,17 @@ class Maneuver:
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
-        self.dc_motorR.forward(100)
-        self.dc_motorL.forward(60)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
+        # self.dc_motorR.forward(100)
+        # self.dc_motorL.forward(60)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
 
-        self.dc_motorR.forward(100)
-        self.dc_motorL.forward(60)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
+        # self.dc_motorR.forward(100)
+        # self.dc_motorL.forward(60)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
 
     def maneuver_R(self):
         self.dc_motorR.forward(100)
@@ -64,36 +66,36 @@ class Maneuver:
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
-        self.dc_motorR.forward(60)
-        self.dc_motorL.forward(100)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
+        # self.dc_motorR.forward(60)
+        # self.dc_motorL.forward(100)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
 
-        self.dc_motorR.forward(60)
-        self.dc_motorL.forward(100)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
+        # self.dc_motorR.forward(60)
+        # self.dc_motorL.forward(100)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
 
     def maneuver_F(self):
         self.dc_motorR.forward(100)
-        self.dc_motorL.forward(60)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
-
-        self.dc_motorR.forward(60)
         self.dc_motorL.forward(100)
         sleep(1.7)
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
-        self.dc_motorR.forward(60)
-        self.dc_motorL.forward(100)
-        sleep(1.7)
-        self.dc_motorL.stop()
-        self.dc_motorR.stop()
+        # self.dc_motorR.forward(60)
+        # self.dc_motorL.forward(100)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
+
+        # self.dc_motorR.forward(60)
+        # self.dc_motorL.forward(100)
+        # sleep(1.7)
+        # self.dc_motorL.stop()
+        # self.dc_motorR.stop()
 
 class HCSR04:
     """
@@ -123,13 +125,13 @@ class HCSR04:
         We use the method `machine.time_pulse_us()` to get the microseconds until the echo is received.
         """
         self.trigger.value(0) # Stabilize the sensor
-        time.sleep_us(5)
+        sleep_us(5)
         self.trigger.value(1)
         # Send a 10us pulse.
-        time.sleep_us(10)
+        sleep_us(10)
         self.trigger.value(0)
         try:
-            pulse_time = machine.time_pulse_us(self.echo, 1, self.echo_timeout_us)
+            pulse_time = time_pulse_us(self.echo, 1, self.echo_timeout_us)
             return pulse_time
         except OSError as ex:
             if ex.args[0] == 110: # 110 = ETIMEDOUT
@@ -184,42 +186,45 @@ class Obstacle_Avoidance:
         distL = self.ultrasonic_objL.distance_cm()
         distR = self.ultrasonic_objR.distance_cm()
         distF = self.ultrasonic_objF.distance_cm()
+        msgL = ""
+        msgR = ""
+        msgF = ""
         flag = False
 
         if distL < 10 and distL > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgL = "Avoiding object on left"
-            self.maneuver_obj.maneuver_R #Turn right
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_L #Turn left
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_L #Turn left
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_R #Turn right
             print(msgL)
+            self.maneuver_obj.maneuver_R() #Turn right
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn left
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn left
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_R() #Turn right
             flag = True
 
         elif distR < 10 and distR > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgR = "Avoiding object on right"
-            self.maneuver_obj.maneuver_L #Turn left
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_R #Turn right
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_R #Turn right
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_L #Turn left
             print(msgR)
+            self.maneuver_obj.maneuver_L() #Turn left
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_R() #Turn right
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_R() #Turn right
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn left
             flag = True
 
         elif distF < 10 and distF > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgF = "Avoiding object in front"
-            self.maneuver_obj.maneuver_R #Turn right
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_L #Turn left
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_L #Turn left
-            self.maneuver_obj.maneuver_F #Go forward
-            self.maneuver_obj.maneuver_R #Turn right
             print(msgF)
+            self.maneuver_obj.maneuver_R() #Turn right
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn left
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn left
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_R() #Turn right
             flag = True
 
         return msgL + msgR + msgF
