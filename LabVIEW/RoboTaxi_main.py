@@ -90,56 +90,159 @@ while(1):
     elif Command == 'F': # Track 1
         response = 'Track 1'
         conn.send(response)
-        # Straight run from (0,0)
-        dc_motorL.forward(100) 
+        # Forward
+        dc_motorL.forward(100)
         dc_motorR.forward(100)
-        sleep(5)
-        dc_motorL.stop()
+        sleep(4)
+        dc_motorL.stop() 
         dc_motorR.stop()
         # First turn
-        dc_motorL.forward(100)  
-        dc_motorR.forward(60)
-        sleep(1.7)
-        dc_motorL.stop()
+        dc_motorL.forward(100)
+        sleep(1.5)
+        dc_motorL.stop() 
         dc_motorR.stop()
-        # Straight run after first turn
-        dc_motorL.forward(100) 
+        # Forward
+        dc_motorL.forward(100)
         dc_motorR.forward(100)
-        sleep(5)
-        dc_motorL.stop()
+        sleep(4)
+        dc_motorL.stop() 
         dc_motorR.stop()
         # Second turn
-        dc_motorL.forward(100)  
-        dc_motorR.forward(60)
-        sleep(1.7)
-        dc_motorL.stop()
+        dc_motorL.forward(100)
+        sleep(1.5)
+        dc_motorL.stop() 
         dc_motorR.stop()
-        # Straight run after second turn
-        dc_motorL.forward(100) 
+        # Forward
+        dc_motorL.forward(100)
         dc_motorR.forward(100)
-        sleep(5)
-        dc_motorL.stop()
+        sleep(4)
+        dc_motorL.stop() 
         dc_motorR.stop()
         # Third turn
-        dc_motorL.forward(100)  
-        dc_motorR.forward(60)
-        sleep(1.7)
-        dc_motorL.stop()
-        dc_motorR.stop()
-        # Straight run after third turn
-        dc_motorL.forward(100) 
-        dc_motorR.forward(100)
-        sleep(5)
-        dc_motorL.stop()
+        dc_motorL.forward(100)
+        sleep(1.5)
+        dc_motorL.stop() 
         dc_motorR.stop()
     elif Command == 'G': # Track 2
         response = 'Track 2'
         conn.send(response)
+        # Forward
+        dc_motorL.forward(100)
+        dc_motorR.forward(100)
+        sleep(4)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # First turn
+        dc_motorL.forward(100)
+        sleep(1.1)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Forward
+        dc_motorL.forward(100)
+        dc_motorR.forward(100)
+        sleep(4)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Second turn
+        dc_motorL.forward(100)
+        sleep(1.1)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Forward
+        dc_motorL.forward(100)
+        dc_motorR.forward(100)
+        sleep(4)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Third turn
+        dc_motorL.forward(100)
+        sleep(1.1)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Forward
+        dc_motorL.forward(100)
+        dc_motorR.forward(100)
+        sleep(4)
+        dc_motorL.stop() 
+        dc_motorR.stop()
+        # Rotate 90 deg
+        dc_motorL.forward(100)
+        sleep(1.1)
+        dc_motorL.stop()
+        dc_motorR.stop()
+    elif Command == 'H': # Interactive Mode
         while True:
-            # Circular-loop
+            response = 'Interactive Mode'
+            conn.send(response)
+            # Forward
             dc_motorL.forward(100)
-            dc_motorR.forward(60)
+            dc_motorR.forward(100)
+            for i in range(40):
+                avoidance.check_surroundings()
+                sleep(0.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # First turn
+            dc_motorL.forward(100)
+            # dc_motorR.forward(40)
+            avoidance.check_surroundings()
+            sleep(1.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Forward
+            dc_motorL.forward(100)
+            dc_motorR.forward(100)
+            for i in range(40):
+                avoidance.check_surroundings()
+                sleep(0.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Second turn
+            dc_motorL.forward(100)
+            # dc_motorR.forward(40)
+            avoidance.check_surroundings()
+            sleep(1.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Forward
+            dc_motorL.forward(100)
+            dc_motorR.forward(100)
+            for i in range(40):
+                avoidance.check_surroundings()
+                sleep(0.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Third turn
+            dc_motorL.forward(100)
+            # dc_motorR.forward(40)
+            avoidance.check_surroundings()
+            sleep(1.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Forward
+            dc_motorL.forward(100)
+            dc_motorR.forward(100)
+            for i in range(40):
+                avoidance.check_surroundings()
+                sleep(0.1)
+            dc_motorL.stop() 
+            dc_motorR.stop()
+            # Rotate 90 deg
+            dc_motorL.forward(100)
+            # dc_motorR.forward(0)
+            avoidance.check_surroundings()
+            sleep(1.1)
+            dc_motorL.stop()
+            dc_motorR.stop()
+    elif Command == 'I': # Interactive Mode
+        while True:
+            response = 'Interactive Mode'
+            conn.send(response)
+            # Forward
+            dc_motorL.forward(100)
+            dc_motorR.forward(100)
             avoidance.check_surroundings_dynamic()
-            sleep(0.5)
-    conn.close()
+            dc_motorL.stop()
+            dc_motorR.stop()
 
+    conn.close()

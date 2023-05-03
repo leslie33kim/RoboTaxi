@@ -251,18 +251,29 @@ class Obstacle_Avoidance:
         direction = ""
         
         if distL < threshold or distR < threshold or distF < threshold: 
-            if dist1 < self.obstacle_distance:
+            if distR < self.obstacle_distance:
                 self.dodge_obstacle('left')
-            elif dist3 < self.obstacle_distance:
+            elif distL < self.obstacle_distance:
                 self.dodge_obstacle('right')
-            elif dist2 < self.obstacle_distance:
+            elif distF < self.obstacle_distance:
                 self.dodge_obstacle('front')
                 
     def dodge_obstacle(self, direction):
         if direction == 'left':
             print("Turning Right")
+            self.dc_motorR.forward(100)
+            sleep(1.1)
+            self.dc_motorL.stop()
+            self.dc_motorR.stop()
         elif direction == 'right':
             print("Turning Left")
+            self.dc_motorL.forward(100)
+            sleep(1.1)
+            self.dc_motorL.stop()
+            self.dc_motorR.stop()
         elif direction == 'front':
             print("Turning Right ")
-            #maybe move either? 
+            self.dc_motorR.forward(100)
+            sleep(1.1)
+            self.dc_motorL.stop()
+            self.dc_motorR.stop()
