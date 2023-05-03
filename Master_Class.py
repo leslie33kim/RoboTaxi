@@ -40,10 +40,10 @@ class Maneuver:
         self.dc_motorL = dc_motorL
         self.dc_motorR = dc_motorR
 
-    def maneuver_L(self):
-        self.dc_motorR.forward(60)
+    def maneuver_R(self):
+        # self.dc_motorR.forward(40)
         self.dc_motorL.forward(100)
-        sleep(1.7)
+        sleep(1.1)
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
@@ -59,10 +59,10 @@ class Maneuver:
         # self.dc_motorL.stop()
         # self.dc_motorR.stop()
 
-    def maneuver_R(self):
+    def maneuver_L(self):
         self.dc_motorR.forward(100)
-        self.dc_motorL.forward(60)
-        sleep(1.7)
+        # self.dc_motorL.forward(40)
+        sleep(1.1)
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
@@ -81,7 +81,7 @@ class Maneuver:
     def maneuver_F(self):
         self.dc_motorR.forward(100)
         self.dc_motorL.forward(100)
-        sleep(1.7)
+        sleep(1.1)
         self.dc_motorL.stop()
         self.dc_motorR.stop()
 
@@ -96,6 +96,10 @@ class Maneuver:
         # sleep(1.7)
         # self.dc_motorL.stop()
         # self.dc_motorR.stop()
+    
+    def maneuver_stop(self):
+        self.dc_motorL.stop()
+        self.dc_motorR.stop()
 
 class HCSR04:
     """
@@ -191,33 +195,42 @@ class Obstacle_Avoidance:
         msgF = ""
         flag = False
 
-        if distL < 10 and distL > 0 and flag != True:  #Checks if dist is less than 10 cm
+        if distL < 25 and distL > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgL = "Avoiding object on left"
             print(msgL)
+            self.maneuver_obj.maneuver_stop() #reset motors
             self.maneuver_obj.maneuver_R() #Turn right
+            print("turning R")
+            self.maneuver_obj.maneuver_F() #Go forward
+            self.maneuver_obj.maneuver_L() #Turn lef
+            print("turning L")
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_L() #Turn left
-            self.maneuver_obj.maneuver_F() #Go forward
-            self.maneuver_obj.maneuver_L() #Turn left
+            print("turning L")
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_R() #Turn right
+            print("turning R")
             flag = True
 
-        elif distR < 10 and distR > 0 and flag != True:  #Checks if dist is less than 10 cm
+        elif distR < 25 and distR > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgR = "Avoiding object on right"
             print(msgR)
+            self.maneuver_obj.maneuver_stop() #reset motors
             self.maneuver_obj.maneuver_L() #Turn left
+            print("turning L")
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_R() #Turn right
+            print("turning R")
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_R() #Turn right
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_L() #Turn left
             flag = True
 
-        elif distF < 10 and distF > 0 and flag != True:  #Checks if dist is less than 10 cm
+        elif distF < 25 and distF > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgF = "Avoiding object in front"
             print(msgF)
+            self.maneuver_obj.maneuver_stop() #reset motors
             self.maneuver_obj.maneuver_R() #Turn right
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_L() #Turn left
