@@ -53,7 +53,9 @@ dc_motorR = DCMotor(pinRf, pinRb, enableR, 350, 1023)
 
 maneuver = Maneuver(dc_motorL, dc_motorR)
 
-avoidance = Obstacle_Avoidance(US_SensorL, US_SensorR, US_SensorF, maneuver)
+threshold = 25
+
+avoidance = Obstacle_Avoidance(US_SensorL, US_SensorR, US_SensorF, maneuver, threshold, dc_motorL, dc_motorR)
 
 while(1):
     print('waiting for connection')

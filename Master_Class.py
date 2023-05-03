@@ -179,11 +179,14 @@ class HCSR04:
 class Obstacle_Avoidance:
 
 #Constructor - need to pass in ultrasonic class object and maneuver class object
-    def __init__(self, ultras_objL, ultras_objR, ultras_objF, man_obj):
+    def __init__(self, ultras_objL, ultras_objR, ultras_objF, man_obj, threshold, dc_motorL, dc_motorR):
         self.ultrasonic_objL = ultras_objL
         self.ultrasonic_objR = ultras_objR
         self.ultrasonic_objF = ultras_objF
         self.maneuver_obj = man_obj
+        self.threshold = threshold
+        self.dc_motorL = dc_motorL
+        self.dc_motorR = dc_motorR
 
 #Class Functions
     def check_surroundings(self):
@@ -244,21 +247,22 @@ class Obstacle_Avoidance:
         return msgL + msgR + msgF
     
     def check_surroundings_dynamic(self):
-        threshold = 10 
+        threshold = 25 
         distL = self.ultrasonic_objL.distance_cm()
         distR = self.ultrasonic_objR.distance_cm()
         distF = self.ultrasonic_objF.distance_cm()
         direction = ""
         
-        if distL < threshold or distR < threshold or distF < threshold: 
-            if distR < self.obstacle_distance:
-                self.dodge_obstacle('left')
-            elif distL < self.obstacle_distance:
-                self.dodge_obstacle('right')
-            elif distF < self.obstacle_distance:
-                self.dodge_obstacle('front')
+        if 0 < distR and distR < self.threshold:
+            self.dodge_obstacle('left')
+        elif 0 < distL and distL < self.threshold:
+            self.dodge_obstacle('right')
+        # elif 0 < distF and distF < self.threshold:
+            # self.dodge_obstacle('front')
                 
     def dodge_obstacle(self, direction):
+        self.dc_motorL.stop()
+        self.dc_motorR.stop()
         if direction == 'left':
             print("Turning Right")
             self.dc_motorR.forward(100)
@@ -273,7 +277,8 @@ class Obstacle_Avoidance:
             self.dc_motorR.stop()
         elif direction == 'front':
             print("Turning Right ")
-            self.dc_motorR.forward(100)
+            self.dc_motorL.forward(100)
             sleep(1.1)
             self.dc_motorL.stop()
             self.dc_motorR.stop()
+
