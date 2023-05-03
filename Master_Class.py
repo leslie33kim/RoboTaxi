@@ -214,6 +214,7 @@ class Obstacle_Avoidance:
             self.maneuver_obj.maneuver_F() #Go forward
             self.maneuver_obj.maneuver_L() #Turn left
             flag = True
+            distance = ""
 
         elif distF < 10 and distF > 0 and flag != True:  #Checks if dist is less than 10 cm
             msgF = "Avoiding object in front"
@@ -228,3 +229,27 @@ class Obstacle_Avoidance:
             flag = True
 
         return msgL + msgR + msgF
+    
+    def check_surroundings_dynamic(self):
+        threshold = 10 
+        distL = self.ultrasonic_objL.distance_cm()
+        distR = self.ultrasonic_objR.distance_cm()
+        distF = self.ultrasonic_objF.distance_cm()
+        direction = ""
+        
+        if distL < threshold or distR < threshold or distF < threshold: 
+            if dist1 < self.obstacle_distance:
+                self.dodge_obstacle('left')
+            elif dist3 < self.obstacle_distance:
+                self.dodge_obstacle('right')
+            elif dist2 < self.obstacle_distance:
+                self.dodge_obstacle('front')
+                
+    def dodge_obstacle(self, direction):
+        if direction == 'left':
+            print("Turning Right")
+        elif direction == 'right':
+            print("Turning Left")
+        elif direction == 'front':
+            print("Turning Right ")
+            #maybe move either? 
