@@ -140,9 +140,6 @@ while(1):
             dc_motorL.forward(100)
             dc_motorR.forward(60)
             avoidance.check_surroundings_dynamic()
-            if avoidance.detected:
-                avoidance.dodge_obstacle(avoidance.direction)
             sleep(0.5)
-
     conn.close()
 
