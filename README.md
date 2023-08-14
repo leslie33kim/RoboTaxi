@@ -18,6 +18,7 @@ You should be able to see the LiDAR clustered point clouds being updated dynamic
 
 ## Chassis Design 
 <img width="388" alt="chassis" src="https://github.com/rafaelrivero16/RoboTaxi/assets/67294700/1607f806-3045-4a9a-bde1-20c514d7c3f2">
+<img width="407" alt="Screen Shot 2023-08-14 at 1 23 56 PM" src="https://github.com/leslie33kim/RoboTaxi/assets/67294700/eb7ff2eb-e77f-463e-8b7f-f465a4468ebf">
 
 ## GUI design 
 A GUI was used to allow the user to interact with the vehicle both autonomously and manually. Features included in the GUI created via LabVIEW were as follows:
@@ -37,4 +38,7 @@ Dynamic Mode avoided objects turning left or right depending on where objects ar
 
 <img width="618" alt="gui" src="https://github.com/rafaelrivero16/RoboTaxi/assets/67294700/ddb857cc-99f2-46f4-a2fe-c911441c44c1">
 
+A video and report that summarizes the whole project can be watched through the YouTube link below:
+https://youtu.be/zvCdq2Q7OfA
+https://docs.google.com/document/d/15juSK7LDKJo6fx4hpUQLhDSh4XNFi-usJUwuh3LVbjM/edit
 
